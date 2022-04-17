@@ -52,14 +52,34 @@ public class MonoSubstitutionCipher
 
 	public String code(String message)
 	{
-		return message;
-		
+		String upperMessage = message.toUpperCase();
+		String coded = "";
+		for(int i=0;i<upperMessage.length();i++)
+		{
+			if(Character.isLowerCase(message.charAt(i)))
+		     coded += Character.toLowerCase(referenceString.charAt(alphabets.indexOf(upperMessage.charAt(i))));
+		    else if(Character.isUpperCase(message.charAt(i)))
+		     coded += Character.toUpperCase(referenceString.charAt(alphabets.indexOf(upperMessage.charAt(i))));
+		    else
+		     coded += upperMessage.charAt(i);
+		 }
+		 return coded;
 	}
 
 	public String decode(String coded)
 	{
-		return coded;
-		
+		String upperCoded = coded.toUpperCase();
+		String decoded = "";
+		for(int i=0;i<coded.length();i++)
+		{
+			if(Character.isLowerCase(coded.charAt(i)))
+			 decoded += Character.toLowerCase(alphabets.charAt(referenceString.indexOf(upperCoded.charAt(i))));
+			else if(Character.isUpperCase(coded.charAt(i)))
+			 decoded += Character.toUpperCase(alphabets.charAt(referenceString.indexOf(upperCoded.charAt(i))));
+			else
+			 decoded += upperCoded.charAt(i);
+		}
+		return decoded;
 	}
 
 
@@ -82,8 +102,15 @@ public class MonoSubstitutionCipher
 
    private String removeRepeatedChars(String message)
    {
-	return message;
-	  
+	  int index = 0;
+	  for(int i=0;i<message.length();i++)
+	  {
+		if((index = message.indexOf(message.charAt(i),i+1)) > -1)
+		{
+			message = removeCharacter(message,message.charAt(index),index);
+	    }
+      }
+      return message;
    }
 
    public static void main(String [] args)
@@ -99,20 +126,43 @@ public class MonoSubstitutionCipher
 
    private String removeCharacter(String message,char ch,int index)
      {
-		return message;
-   	     
+   	     StringBuffer buffer = new StringBuffer(message);
+         buffer.deleteCharAt(index);
+         return buffer.toString();
      }
 
      private String removeAllCharacters(String message,char ch)
 	 {
-		return message;
-	    	  
+	    	  StringBuffer buffer = new StringBuffer(message);
+	    	  int index = 0;
+	    	  while( (index = message.indexOf(ch,index)) > -1)
+	    	  {
+	    	    buffer.deleteCharAt(index);
+	    	    message = buffer.toString();
+	          }
+	          return buffer.toString();
      }
 
   private int[] indexesOf(String message,char ch,int fromIndex)
   {
-	return null;
-	  
+	  if(message.indexOf(ch,fromIndex) < 0)
+	  return null;
+	  int noOfch = 0;
+	  char[] array = message.toCharArray();
+	  for(int i=fromIndex;i<message.length();i++){
+	   if(array[i] == ch)
+	    noOfch++;
+	  }//for
+
+	  int[] indexArray = new int[noOfch];
+	  int ii=0;
+	  for(int j=fromIndex;j<indexArray.length;j++)
+	  {
+		  if(array[j] == ch)
+		  indexArray[ii++] = j;
+	  }
+
+	  return indexArray;
   }
 
 

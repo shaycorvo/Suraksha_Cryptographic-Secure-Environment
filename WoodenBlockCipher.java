@@ -64,16 +64,45 @@ class WoodenBlockCipher
 
   private String removeCharacter(String message,char ch)
   {
+	  StringBuffer buffer = new StringBuffer(message);
+	  int index = 0;
+	  while( (index = message.indexOf(ch,index)) > -1)
+	  {
+	    buffer.deleteCharAt(index);
+	    message = buffer.toString();
+      }
       return message;
   }
 
   public void writeBytes(String s,File file) throws FileNotFoundException
   {
+  	FileOutputStream fos = new FileOutputStream(file);
+  	try{
+  		fos.write(s.getBytes("ASCII"));
+  		fos.close();
+  	}
+  	catch(UnsupportedEncodingException ex)
+  	{
+  		 try{
+  			 fos.write(s.getBytes());
+  			 fos.close();
+  			 }
+  		 catch(UnsupportedEncodingException ee){}
+  		 catch(IOException eeio){}
+  	 }
+  	 catch(IOException eio)
+  	 {
+  	 }
   }
 
   public String readBytes(File file)throws FileNotFoundException,IOException
   {
-	return null;
+	byte[] theData;
+  	FileInputStream fis = new FileInputStream(file);
+  	theData  = new byte[fis.available()];
+  	fis.read(theData);
+  	fis.close();
+    	 return new String(theData);
 }
 
 }
