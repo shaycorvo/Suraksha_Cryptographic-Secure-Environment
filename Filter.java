@@ -1,0 +1,59 @@
+
+
+//To provide a filter to open and save a file using the FileChooser
+import java.io.*;
+import javax.swing.filechooser.*;
+import java.util.*;
+
+public class Filter extends javax.swing.filechooser.FileFilter
+{
+Vector ext = new Vector(5,5);
+
+public boolean accept(File f)
+	 {
+
+		 if(f.isDirectory())
+		 return true;
+		 String fileName = f.getName();
+		 String extention = fileName.substring(fileName.indexOf('.') + 1);
+		if(ext.contains(extention))
+			return true;
+		else
+		  return false;
+	 }
+
+public void addExtention(String ex)
+{
+  ext.add(ex);
+}
+
+public String getDescription()
+{
+	return "filter";
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
