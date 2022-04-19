@@ -49,7 +49,6 @@
   JMenuItem closeFileInList;
   /*********************************************************************/
  	TextBox textBox; // this will display text of selected open file.
-
  	JList     fileList; // this will display all open files
  	                    // one of which can be selected to be displayed in
  	                    // the textBox.
@@ -1112,13 +1111,18 @@ try
     });
   /********************************************************************************/
   JPanel contentPane = new JPanel();
+  
           contentPane.setLayout(new BorderLayout());
           contentPane.setPreferredSize(new Dimension(400, 100));
           contentPane.add(toolBar, BorderLayout.NORTH);
           contentPane.add(splitPane, BorderLayout.CENTER);
           contentPane.add(statusBar,BorderLayout.SOUTH);
           setContentPane(contentPane);
-          
+          contentPane.setBackground(new java.awt.Color(125, 229, 251));
+          toolBar.setBackground(new java.awt.Color(125, 229, 251));
+          splitPane.setBackground(new java.awt.Color(125, 229, 251));
+          statusBar.setBackground(new java.awt.Color(125, 229, 251));
+      
           
           
           
@@ -1378,9 +1382,6 @@ public static void main(String args[])
 		        {
 	            e.printStackTrace();
 			    }
-
-	Thread t2 = new Thread(new StartProgram());
-	t2.start();
     //System.out.println("Loading Kpad Please wait");
 	//Kpad myPad = new Kpad();
 
